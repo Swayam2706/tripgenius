@@ -4,7 +4,7 @@
 const imageCache = new Map();
 
 // API base URL - adjust if your backend runs on a different port
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 /**
  * Fetch image from Google via backend API
@@ -23,17 +23,17 @@ const fetchGoogleImage = async (query, type = 'place') => {
     const response = await fetch(
       `${API_BASE_URL}/api/images/search?query=${encodeURIComponent(query)}&type=${type}`
     );
-    
+
     if (!response.ok) {
       throw new Error('Failed to fetch image');
     }
-    
+
     const data = await response.json();
     const imageUrl = data.imageUrl || getFallbackImageUrl(type);
-    
+
     // Cache the result
     imageCache.set(cacheKey, imageUrl);
-    
+
     return imageUrl;
   } catch (error) {
     console.warn(`Failed to fetch Google image for "${query}":`, error.message);
@@ -76,7 +76,7 @@ export const getHotelImageUrl = async (hotelName, location) => {
 export const getHotelImageUrls = async (hotelName, location, count = 3) => {
   const query = `${hotelName} ${location}`;
   const imageUrls = [];
-  
+
   // Check cache first
   const cacheKey = `${query}-hotel-multiple-${count}`;
   if (imageCache.has(cacheKey)) {

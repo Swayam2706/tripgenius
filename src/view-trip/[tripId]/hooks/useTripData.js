@@ -11,10 +11,10 @@ export const useTripData = (tripId) => {
       try {
         setLoading(true)
         setError(null)
-        
+
         // Try to fetch from API first
-        const response = await fetch(`http://localhost:5000/api/trips/${tripId}`)
-        
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/trips/${tripId}`)
+
         if (response.ok) {
           const data = await response.json()
           setTrip(data)
@@ -33,7 +33,7 @@ export const useTripData = (tripId) => {
       } catch (error) {
         console.error('Error fetching trip:', error)
         setError('Failed to fetch trip data')
-        
+
         // Fallback to localStorage
         const tripData = localStorage.getItem('currentTrip')
         if (tripData) {

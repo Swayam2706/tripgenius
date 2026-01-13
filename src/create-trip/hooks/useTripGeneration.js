@@ -26,7 +26,7 @@ export const useTripGeneration = (user, isAuthenticated) => {
     try {
       // Generate travel plan using AI
       const result = await generateTravelPlan(formData)
-      
+
       // Prepare trip data
       const tripPayload = {
         destination: formData.location?.label || formData.location,
@@ -38,9 +38,9 @@ export const useTripGeneration = (user, isAuthenticated) => {
         aiResponse: result.data,
         formData
       }
-      
+
       // Save to MongoDB
-      const response = await fetch('http://localhost:5000/api/trips', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/trips`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export const useTripGeneration = (user, isAuthenticated) => {
         const errorData = await response.text()
         throw new Error(`Failed to save trip: ${response.statusText}`)
       }
-      
+
     } catch (err) {
       console.error('Error generating trip:', err)
       setError(err.message)

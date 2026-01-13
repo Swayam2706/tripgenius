@@ -23,8 +23,8 @@ app.use((req, res, next) => {
 const MONGODB_URI = process.env.MONGODB_URL || 'mongodb://localhost:27017/tripgenius';
 
 mongoose.connect(MONGODB_URI)
-.then(() => console.log('✅ MongoDB connected successfully'))
-.catch((err) => console.error('❌ MongoDB connection error:', err));
+  .then(() => console.log('✅ MongoDB connected successfully'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 // Trip Schema
 const tripSchema = new mongoose.Schema({
@@ -49,13 +49,13 @@ app.post('/api/trips', async (req, res) => {
   try {
     console.log('📥 Received trip creation request:', req.body);
     const { destination, duration, budget, travelers, userId, userEmail, aiResponse, formData } = req.body;
-    
+
     // Validate required fields
     if (!destination || !duration || !budget || !travelers || !userId || !userEmail || !aiResponse) {
       console.error('❌ Missing required fields:', { destination, duration, budget, travelers, userId, userEmail, aiResponse });
       return res.status(400).json({ error: 'Missing required fields' });
     }
-    
+
     const trip = new Trip({
       destination,
       duration,
@@ -142,7 +142,7 @@ app.delete('/api/trips/:id', async (req, res) => {
 app.get('/api/images/search', async (req, res) => {
   try {
     const { query, type = 'place' } = req.query;
-    
+
     if (!query) {
       return res.status(400).json({ error: 'Query parameter is required' });
     }
@@ -155,7 +155,7 @@ app.get('/api/images/search', async (req, res) => {
       console.warn('Google Custom Search API not configured, using fallback image');
       console.warn('API Key exists:', !!GOOGLE_CUSTOM_SEARCH_API_KEY);
       console.warn('Engine ID exists:', !!GOOGLE_CUSTOM_SEARCH_ENGINE_ID);
-      return res.json({ 
+      return res.json({
         imageUrl: getFallbackImageUrl(type),
         source: 'fallback'
       });
@@ -196,14 +196,14 @@ app.get('/api/images/search', async (req, res) => {
     if (response.data.items && response.data.items.length > 0) {
       const imageUrl = response.data.items[0].link;
       console.log('✓ Found Google image:', imageUrl);
-      return res.json({ 
+      return res.json({
         imageUrl,
         source: 'google'
       });
     } else {
       // No images found, return fallback
       console.warn('No images found in Google API response, using fallback');
-      return res.json({ 
+      return res.json({
         imageUrl: getFallbackImageUrl(type),
         source: 'fallback'
       });
@@ -212,7 +212,7 @@ app.get('/api/images/search', async (req, res) => {
     console.error('Error fetching Google image:', error.message);
     console.error('Full error:', error.response?.data || error);
     // Return fallback image on error
-    return res.json({ 
+    return res.json({
       imageUrl: getFallbackImageUrl(req.query.type || 'place'),
       source: 'fallback'
     });
@@ -234,9 +234,13 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
 
 
 
