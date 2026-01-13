@@ -1,0 +1,21 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="200" fill="white" />
+
+  <g transform="translate(40, 40)">
+    <circle cx="60" cy="60" r="55" fill="#2c3e50" />
+    
+    <path d="M30 40c10-5 20 5 25 15s-5 30-15 35-20-5-20-15 5-30 10-35z" fill="#27ae60" opacity="0.8"/>
+    
+    <path d="M70 30c15 0 25 10 25 30s-10 30-25 30" fill="none" stroke="#f39c12" stroke-width="4" stroke-linecap="round"/>
+    <path d="M75 45c10 0 15 5 15 15s-5 15-15 15" fill="none" stroke="#f39c12" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="95" cy="60" r="4" fill="#f39c12"/>
+    
+    <ellipse cx="60" cy="60" rx="70" ry="25" fill="none" stroke="#3498db" stroke-width="2" transform="rotate(-20 60 60)" />
+  </g>
+
+  <text x="180" y="115" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-weight="700" font-size="65" fill="#2c3e50">
+    Trip<tspan fill="#f39c12">Genius</tspan>
+  </text>
+  
+  <path d="M540 65l15 10-15 10 3-10z" fill="#2c3e50" transform="rotate(-10 540 65)"/>
+</svg>
