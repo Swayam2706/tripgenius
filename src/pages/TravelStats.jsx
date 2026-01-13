@@ -1,7 +1,7 @@
 import React from 'react'
 import { TrendingUp, ArrowLeft, MapPin, Globe, Clock, DollarSign } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 
 const TravelStats = () => {
   const navigate = useNavigate()

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { History, ArrowLeft, MapPin, Calendar, Filter } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 import { useTripHistory } from '../hooks/useTripHistory'
 import { useAuth } from '../context/AuthContext'
 
@@ -15,15 +15,15 @@ const TripHistory = () => {
   // Filter trips based on search and status
   const filteredTrips = React.useMemo(() => {
     let trips = tripHistory
-    
+
     if (searchTerm.trim()) {
       trips = searchTrips(searchTerm)
     }
-    
+
     if (selectedStatus !== 'all') {
       trips = filterByStatus(selectedStatus)
     }
-    
+
     return trips
   }, [tripHistory, searchTerm, selectedStatus, searchTrips, filterByStatus])
 
@@ -139,11 +139,10 @@ const TripHistory = () => {
                   >
                     <span className="text-red-500 text-sm">×</span>
                   </button>
-                  <span className={`absolute top-3 left-3 text-xs px-2 py-1 rounded-full ${
-                    trip.status === 'completed' ? 'bg-green-100 text-green-800' :
-                    trip.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
-                    'bg-red-100 text-red-800'
-                  }`}>
+                  <span className={`absolute top-3 left-3 text-xs px-2 py-1 rounded-full ${trip.status === 'completed' ? 'bg-green-100 text-green-800' :
+                      trip.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
+                        'bg-red-100 text-red-800'
+                    }`}>
                     {trip.status}
                   </span>
                 </div>

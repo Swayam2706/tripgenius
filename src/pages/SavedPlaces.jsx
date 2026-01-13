@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Bookmark, ArrowLeft, MapPin, Heart, Search, Filter, Grid, List, Plus, Sparkles } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 import { useSavedPlaces } from '../hooks/useSavedPlaces'
 import { useAuth } from '../context/AuthContext'
 
@@ -24,15 +24,15 @@ const SavedPlaces = () => {
   // Filter places based on search and category
   const filteredPlaces = React.useMemo(() => {
     let places = savedPlaces
-    
+
     if (searchTerm.trim()) {
       places = searchPlaces(searchTerm)
     }
-    
+
     if (selectedCategory !== 'all') {
       places = filterByCategory(selectedCategory)
     }
-    
+
     return places
   }, [savedPlaces, searchTerm, selectedCategory, searchPlaces, filterByCategory])
 
@@ -93,7 +93,7 @@ const SavedPlaces = () => {
               <h1 className="text-3xl font-bold text-[#2c3e50]">Saved Places</h1>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
             <Button
               onClick={() => setShowAddModal(true)}
@@ -217,9 +217,8 @@ const SavedPlaces = () => {
             {filteredPlaces.map((place) => (
               <div
                 key={place.id}
-                className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${
-                  viewMode === 'list' ? 'flex' : ''
-                }`}
+                className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${viewMode === 'list' ? 'flex' : ''
+                  }`}
               >
                 {/* Image */}
                 <div className={viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'}>
@@ -290,35 +289,35 @@ const SavedPlaces = () => {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
               <h2 className="text-2xl font-bold text-[#2c3e50] mb-6">Add New Place</h2>
-              
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Place Name</label>
                   <input
                     type="text"
                     value={newPlace.name}
-                    onChange={(e) => setNewPlace({...newPlace, name: e.target.value})}
+                    onChange={(e) => setNewPlace({ ...newPlace, name: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39c12]"
                     placeholder="e.g., Eiffel Tower"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
                   <input
                     type="text"
                     value={newPlace.location}
-                    onChange={(e) => setNewPlace({...newPlace, location: e.target.value})}
+                    onChange={(e) => setNewPlace({ ...newPlace, location: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39c12]"
                     placeholder="e.g., Paris, France"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                   <select
                     value={newPlace.category}
-                    onChange={(e) => setNewPlace({...newPlace, category: e.target.value})}
+                    onChange={(e) => setNewPlace({ ...newPlace, category: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39c12]"
                   >
                     <option value="Landmark">Landmark</option>
@@ -331,18 +330,18 @@ const SavedPlaces = () => {
                     <option value="Restaurant">Restaurant</option>
                   </select>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                   <textarea
                     value={newPlace.description}
-                    onChange={(e) => setNewPlace({...newPlace, description: e.target.value})}
+                    onChange={(e) => setNewPlace({ ...newPlace, description: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39c12]"
                     rows={3}
                     placeholder="Why do you want to visit this place?"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
                   <div className="flex gap-1">
@@ -350,7 +349,7 @@ const SavedPlaces = () => {
                       <button
                         key={star}
                         type="button"
-                        onClick={() => setNewPlace({...newPlace, rating: star})}
+                        onClick={() => setNewPlace({ ...newPlace, rating: star })}
                         className="text-2xl focus:outline-none"
                       >
                         {star <= newPlace.rating ? '⭐' : '☆'}
@@ -359,7 +358,7 @@ const SavedPlaces = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex gap-3 mt-6">
                 <Button
                   onClick={handleAddPlace}

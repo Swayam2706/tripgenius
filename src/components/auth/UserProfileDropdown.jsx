@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { 
-  LogOut, 
-  User, 
-  History, 
+import {
+  LogOut,
+  User,
+  History,
   Bookmark,
   ChevronDown
 } from 'lucide-react'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 
 const UserProfileDropdown = () => {
   const { user, logout, isAuthenticated } = useAuth()
@@ -68,9 +68,9 @@ const UserProfileDropdown = () => {
         {/* User Avatar */}
         <div className="relative">
           {user.picture ? (
-            <img 
-              src={user.picture} 
-              alt={user.name || 'User'} 
+            <img
+              src={user.picture}
+              alt={user.name || 'User'}
               className="w-8 h-8 rounded-full border-2 border-[#f39c12] object-cover"
             />
           ) : (
@@ -78,7 +78,7 @@ const UserProfileDropdown = () => {
               <User className="w-4 h-4 text-white" />
             </div>
           )}
-          
+
           {/* Online indicator */}
           <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
         </div>
@@ -99,10 +99,9 @@ const UserProfileDropdown = () => {
         </div>
 
         {/* Dropdown Arrow */}
-        <ChevronDown 
-          className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
+        <ChevronDown
+          className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+            }`}
         />
       </Button>
 
@@ -113,9 +112,9 @@ const UserProfileDropdown = () => {
           <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-[#f8f9fa] to-[#e8f4f8]">
             <div className="flex items-center gap-3">
               {user.picture ? (
-                <img 
-                  src={user.picture} 
-                  alt={user.name || 'User'} 
+                <img
+                  src={user.picture}
+                  alt={user.name || 'User'}
                   className="w-10 h-10 rounded-full border-2 border-[#f39c12] object-cover"
                 />
               ) : (

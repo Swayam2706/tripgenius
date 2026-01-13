@@ -3,7 +3,7 @@ import { Mail, Lock, Eye, EyeOff, User, LogIn } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 import { Input } from "@/components/ui/input"
 
 const SignInForm = ({ onSignInSuccess, onSwitchToSignUp }) => {
@@ -22,7 +22,7 @@ const SignInForm = ({ onSignInSuccess, onSwitchToSignUp }) => {
     onSuccess: async (tokenResponse) => {
       console.log("SignInForm - Google Login Success:", tokenResponse)
       setGoogleLoading(true)
-      
+
       try {
         // Get user profile from Google
         const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenResponse.access_token}`, {
@@ -37,12 +37,12 @@ const SignInForm = ({ onSignInSuccess, onSwitchToSignUp }) => {
 
         // Login to app
         login(userData)
-        
+
         // Call success callback
         if (onSignInSuccess) {
           onSignInSuccess(userData)
         }
-        
+
       } catch (error) {
         console.error("SignInForm - Error getting Google user profile:", error)
         setErrors({
@@ -78,29 +78,29 @@ const SignInForm = ({ onSignInSuccess, onSwitchToSignUp }) => {
 
   const validateForm = () => {
     const newErrors = {}
-    
+
     if (!formData.email) {
       newErrors.email = 'Email is required'
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid'
     }
-    
+
     if (!formData.password) {
       newErrors.password = 'Password is required'
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters'
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     console.log('SignInForm - handleSubmit called')
     console.log('SignInForm - formData:', formData)
-    
+
     if (!validateForm()) {
       console.log('SignInForm - validation failed')
       return
@@ -108,11 +108,11 @@ const SignInForm = ({ onSignInSuccess, onSwitchToSignUp }) => {
 
     console.log('SignInForm - validation passed, starting sign in')
     setLoading(true)
-    
+
     try {
       // Simulate authentication (in real app, this would call your backend)
       console.log('SignInForm - Signing in with:', formData)
-      
+
       // Mock user data for demo
       const userData = {
         id: 'user_' + Date.now(),
@@ -121,21 +121,21 @@ const SignInForm = ({ onSignInSuccess, onSwitchToSignUp }) => {
         picture: `https://ui-avatars.com/api/?name=${formData.email.split('@')[0]}&background=f39c12&color=fff&size=128`,
         verified: true
       }
-      
+
       console.log('SignInForm - Created userData:', userData)
-      
+
       // Login user
       console.log('SignInForm - Calling login function...')
       login(userData)
       console.log('SignInForm - Login function called successfully')
-      
+
       // Call success callback
       if (onSignInSuccess) {
         console.log('SignInForm - Calling onSignInSuccess callback...')
         onSignInSuccess(userData)
         console.log('SignInForm - onSignInSuccess callback completed')
       }
-      
+
     } catch (error) {
       console.error('SignInForm - Sign in error:', error)
       setErrors({

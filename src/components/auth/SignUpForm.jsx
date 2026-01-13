@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Mail, Lock, Eye, EyeOff, User, UserPlus } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 import { Input } from "@/components/ui/input"
 
 const SignUpForm = ({ onSignUpSuccess, onSwitchToSignIn }) => {
@@ -33,48 +33,48 @@ const SignUpForm = ({ onSignUpSuccess, onSwitchToSignIn }) => {
 
   const validateForm = () => {
     const newErrors = {}
-    
+
     if (!formData.name) {
       newErrors.name = 'Name is required'
     } else if (formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters'
     }
-    
+
     if (!formData.email) {
       newErrors.email = 'Email is required'
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid'
     }
-    
+
     if (!formData.password) {
       newErrors.password = 'Password is required'
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters'
     }
-    
+
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password'
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match'
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     if (!validateForm()) {
       return
     }
 
     setLoading(true)
-    
+
     try {
       // Simulate registration (in real app, this would call your backend)
       console.log('Signing up with:', formData)
-      
+
       // Mock user data for demo
       const userData = {
         id: 'user_' + Date.now(),
@@ -84,15 +84,15 @@ const SignUpForm = ({ onSignUpSuccess, onSwitchToSignIn }) => {
         verified: false,
         createdAt: new Date().toISOString()
       }
-      
+
       // Login user after successful registration
       login(userData)
-      
+
       // Call success callback
       if (onSignUpSuccess) {
         onSignUpSuccess(userData)
       }
-      
+
     } catch (error) {
       console.error('Sign up error:', error)
       setErrors({

@@ -1,7 +1,7 @@
 import React from 'react'
 import { User, ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 
 const Profile = () => {
   const navigate = useNavigate()

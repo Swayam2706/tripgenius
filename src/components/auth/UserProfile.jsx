@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { LogOut, User, Mail } from 'lucide-react'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 
 const UserProfile = () => {
   const { user, logout, isAuthenticated } = useAuth()
@@ -24,9 +24,9 @@ const UserProfile = () => {
           {/* Avatar */}
           <div className="relative">
             {user.picture ? (
-              <img 
-                src={user.picture} 
-                alt={user.name || 'User'} 
+              <img
+                src={user.picture}
+                alt={user.name || 'User'}
                 className="w-12 h-12 rounded-full border-2 border-[#f39c12] shadow-sm"
               />
             ) : (
@@ -34,7 +34,7 @@ const UserProfile = () => {
                 <User className="w-6 h-6 text-white" />
               </div>
             )}
-            
+
             {/* Online indicator */}
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
           </div>

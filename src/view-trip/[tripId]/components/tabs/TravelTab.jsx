@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Plane, Train, Bus, ExternalLink, MapPin, Clock, DollarSign, Loader2, AlertCircle } from 'lucide-react'
 import { generateTravelOptions } from '../../../../service/TravelService'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 
 const TravelTab = ({ parsedData, trip }) => {
   const [travelOptions, setTravelOptions] = useState(null)
@@ -20,7 +20,7 @@ const TravelTab = ({ parsedData, trip }) => {
         setLoading(true)
         // Get destination from user's input (from formData or parsedData)
         const destination = parsedData?.destination || trip?.destination || trip?.formData?.location?.label || trip?.formData?.location
-        
+
         if (!destination) {
           setError('Destination not available')
           setLoading(false)
@@ -28,10 +28,10 @@ const TravelTab = ({ parsedData, trip }) => {
         }
 
         console.log('Fetching travel options for destination:', destination)
-        
+
         // Get origin if available from formData
         const origin = trip?.formData?.origin || parsedData?.origin || null
-        
+
         const result = await generateTravelOptions(destination, origin)
         setTravelOptions(result.data)
       } catch (err) {
@@ -47,7 +47,7 @@ const TravelTab = ({ parsedData, trip }) => {
 
   const getBookingUrl = (type, destination) => {
     const dest = encodeURIComponent(destination)
-    
+
     switch (type.toLowerCase()) {
       case 'flight':
         return `https://www.makemytrip.com/flights/search?tripType=O&itinerary=${dest}&paxType=Adult-1&cabinClass=E`
@@ -126,10 +126,10 @@ const TravelTab = ({ parsedData, trip }) => {
               </div>
             </div>
           </div>
-          
+
           <div className="p-6 space-y-4">
             {travelOptions.flights.map((flight, index) => (
-              <div 
+              <div
                 key={index}
                 className="group border-2 border-gray-200 rounded-xl p-5 hover:border-[#3498db] hover:shadow-lg transition-all duration-300"
               >
@@ -144,7 +144,7 @@ const TravelTab = ({ parsedData, trip }) => {
                         <p className="text-sm text-gray-600">{flight.route || 'Direct Flight'}</p>
                       </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                       {flight.duration && (
                         <div className="flex items-center gap-2 text-gray-600">
@@ -164,7 +164,7 @@ const TravelTab = ({ parsedData, trip }) => {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col items-end gap-3">
                     <div className="text-right">
                       <div className="text-2xl font-bold text-[#2c3e50]">
@@ -201,10 +201,10 @@ const TravelTab = ({ parsedData, trip }) => {
               </div>
             </div>
           </div>
-          
+
           <div className="p-6 space-y-4">
             {travelOptions.trains.map((train, index) => (
-              <div 
+              <div
                 key={index}
                 className="group border-2 border-gray-200 rounded-xl p-5 hover:border-[#27ae60] hover:shadow-lg transition-all duration-300"
               >
@@ -219,7 +219,7 @@ const TravelTab = ({ parsedData, trip }) => {
                         <p className="text-sm text-gray-600">{train.route || 'Express Train'}</p>
                       </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                       {train.duration && (
                         <div className="flex items-center gap-2 text-gray-600">
@@ -239,7 +239,7 @@ const TravelTab = ({ parsedData, trip }) => {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col items-end gap-3">
                     <div className="text-right">
                       <div className="text-2xl font-bold text-[#2c3e50]">
@@ -295,10 +295,10 @@ const TravelTab = ({ parsedData, trip }) => {
               </div>
             </div>
           </div>
-          
+
           <div className="p-6 space-y-4">
             {travelOptions.buses.map((bus, index) => (
-              <div 
+              <div
                 key={index}
                 className="group border-2 border-gray-200 rounded-xl p-5 hover:border-[#f39c12] hover:shadow-lg transition-all duration-300"
               >
@@ -313,7 +313,7 @@ const TravelTab = ({ parsedData, trip }) => {
                         <p className="text-sm text-gray-600">{bus.type || 'AC Sleeper'}</p>
                       </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                       {bus.duration && (
                         <div className="flex items-center gap-2 text-gray-600">
@@ -328,7 +328,7 @@ const TravelTab = ({ parsedData, trip }) => {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col items-end gap-3">
                     <div className="text-right">
                       <div className="text-2xl font-bold text-[#2c3e50]">
