@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../ui/button'
-import {Link} from "react-router-dom"
+import Button from '../ui/Button'
+import { Link } from "react-router-dom"
 import { Globe, Compass, Sparkles, ArrowRight } from 'lucide-react'
 
 function Hero() {
@@ -8,7 +8,7 @@ function Hero() {
         <div className='relative h-screen flex flex-col items-center justify-center overflow-hidden'>
             {/* Animated Background Gradient */}
             <div className='absolute inset-0 bg-gradient-to-br from-[#f8f9fa] via-white to-[#e8f4f8] animate-gradient'></div>
-            
+
             {/* Decorative Elements - Smaller and positioned better */}
             <div className='absolute top-10 left-5 sm:left-10 w-48 sm:w-56 h-48 sm:h-56 bg-[#f39c12]/10 rounded-full blur-3xl animate-float'></div>
             <div className='absolute bottom-10 right-5 sm:right-10 w-56 sm:w-64 h-56 sm:h-64 bg-[#3498db]/10 rounded-full blur-3xl animate-float animation-delay-300'></div>
