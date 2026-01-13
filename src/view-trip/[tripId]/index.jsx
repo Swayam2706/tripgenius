@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Compass } from 'lucide-react'
-import Button from '@/components/ui/button'
+import Button from '@/components/ui/Button'
 
 // Import components
 import TripHeader from './components/TripHeader'
@@ -56,7 +56,7 @@ function ViewTrip() {
           </div>
           <div className="text-4xl font-bold text-white mb-4">Adventure Not Found</div>
           <p className="text-gray-300 mb-8 max-w-md">The journey you're looking for doesn't exist or has been misplaced. Let's create a new amazing adventure!</p>
-          <Button 
+          <Button
             onClick={() => navigate('/create-trip')}
             className="bg-[#f39c12] hover:bg-[#e67e22] text-[#2c3e50] px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg"
           >
@@ -88,7 +88,7 @@ function ViewTrip() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
       {/* Trip Header */}
-      <TripHeader 
+      <TripHeader
         trip={trip}
         parsedData={parsedData}
         isLiked={isLiked}
@@ -102,14 +102,14 @@ function ViewTrip() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         {/* Navigation Tabs - Sticky on scroll */}
         <div className="sticky top-4 z-40 mb-8">
-          <TripNavigation 
+          <TripNavigation
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
         </div>
 
         {/* Share Modal */}
-        <ShareModal 
+        <ShareModal
           showShareModal={showShareModal}
           setShowShareModal={setShowShareModal}
         />
@@ -124,4 +124,4 @@ function ViewTrip() {
 }
 
 export default ViewTrip
-;
+  ;
