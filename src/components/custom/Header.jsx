@@ -9,14 +9,15 @@ import { Sparkles } from 'lucide-react'
 function Header() {
   const { isAuthenticated } = useAuth()
   const [openDialog, setOpenDialog] = useState(false)
+  const [authMode, setAuthMode] = useState('signin')
   const location = useLocation()
   const isHomePage = location.pathname === '/'
 
   return (
     <>
       <div className={`sticky top-0 z-50 w-full shadow-lg transition-all duration-300 ${isHomePage
-          ? 'bg-white/95 backdrop-blur-md border-b border-[#f39c12]/20'
-          : 'bg-white shadow-xl'
+        ? 'bg-white/95 backdrop-blur-md border-b border-[#f39c12]/20'
+        : 'bg-white shadow-xl'
         }`}>
         <div className='w-full px-6 sm:px-8 lg:px-12 py-6'>
           <div className='flex justify-between items-center w-full'>
@@ -45,13 +46,30 @@ function Header() {
               {isAuthenticated ? (
                 <UserProfileDropdown />
               ) : (
-                <Button
-                  onClick={() => setOpenDialog(true)}
-                  className="group relative px-10 py-4 bg-gradient-to-r from-[#f39c12] to-[#e67e22] text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 overflow-hidden rounded-full text-lg"
-                >
-                  <span className='relative z-10'>Sign In</span>
-                  <div className='absolute inset-0 bg-gradient-to-r from-[#e67e22] to-[#f39c12] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full'></div>
-                </Button>
+                <div className='flex items-center gap-4'>
+                  {/* Sign In Button - Secondary */}
+                  <Button
+                    onClick={() => {
+                      setAuthMode('signin')
+                      setOpenDialog(true)
+                    }}
+                    className="px-6 py-2 text-[#2c3e50] font-bold hover:text-[#f39c12] transition-colors text-lg"
+                  >
+                    Sign In
+                  </Button>
+
+                  {/* Sign Up Button - Primary (Existing Style) */}
+                  <Button
+                    onClick={() => {
+                      setAuthMode('signup')
+                      setOpenDialog(true)
+                    }}
+                    className="group relative px-8 py-3 bg-gradient-to-r from-[#f39c12] to-[#e67e22] text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 overflow-hidden rounded-full text-lg"
+                  >
+                    <span className='relative z-10'>Sign Up</span>
+                    <div className='absolute inset-0 bg-gradient-to-r from-[#e67e22] to-[#f39c12] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full'></div>
+                  </Button>
+                </div>
               )}
             </div>
           </div>
@@ -62,6 +80,7 @@ function Header() {
       <AuthDialog
         open={openDialog}
         onOpenChange={setOpenDialog}
+        defaultView={authMode}
         onAuthSuccess={() => {
           setOpenDialog(false)
           window.location.reload()

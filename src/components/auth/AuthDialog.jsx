@@ -12,20 +12,23 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
-const AuthDialog = ({ open, onOpenChange, onAuthSuccess }) => {
+const AuthDialog = ({ open, onOpenChange, onAuthSuccess, defaultView = 'signin' }) => {
   const { login } = useAuth()
-  const [currentView, setCurrentView] = useState('signin') // 'signin' or 'signup'
+  const [currentView, setCurrentView] = useState(defaultView) // 'signin' or 'signup'
 
   // Debug logging
   React.useEffect(() => {
     console.log("AuthDialog - open state:", open)
-  }, [open])
+    if (open) {
+      setCurrentView(defaultView)
+    }
+  }, [open, defaultView])
 
   // Google Login
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log("Google Login Success:", tokenResponse)
-      
+
       try {
         // Get user profile from Google
         const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenResponse.access_token}`, {
@@ -38,17 +41,36 @@ const AuthDialog = ({ open, onOpenChange, onAuthSuccess }) => {
         const userData = response.data
         console.log("User Profile:", userData)
 
-        // Login to app
+        // Sync user with backend
+        // We'll try to find the API URL from environment, or default to localhost:5000
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+        try {
+          console.log("Syncing user with backend...");
+          await axios.post(`${API_URL}/api/users/sync`, {
+            email: userData.email,
+            googleId: userData.id,
+            name: userData.name,
+            picture: userData.picture
+          });
+          console.log("User synced with backend successfully");
+        } catch (syncError) {
+          // Verify if it's a network error or server error, but don't block login?
+          // User asked for persistence, so maybe we should at least log it loudly.
+          console.error("Failed to sync user with backend:", syncError);
+        }
+
+        // Login to app (update local context)
         login(userData)
-        
+
         // Close dialog
         onOpenChange(false)
-        
+
         // Callback for success
         if (onAuthSuccess) {
           onAuthSuccess(userData)
         }
-        
+
       } catch (error) {
         console.error("Error getting user profile:", error)
       }
@@ -103,8 +125,8 @@ const AuthDialog = ({ open, onOpenChange, onAuthSuccess }) => {
             {currentView === 'signin' ? 'Welcome Back' : 'Join TripGenius'}
           </DialogTitle>
           <DialogDescription className="text-gray-600 text-base">
-            {currentView === 'signin' 
-              ? 'Sign in to continue your travel journey' 
+            {currentView === 'signin'
+              ? 'Sign in to continue your travel journey'
               : 'Create an account to start planning amazing trips'
             }
           </DialogDescription>
@@ -112,12 +134,12 @@ const AuthDialog = ({ open, onOpenChange, onAuthSuccess }) => {
 
         <div className="py-6">
           {currentView === 'signin' ? (
-            <SignInForm 
+            <SignInForm
               onSignInSuccess={handleSignInSuccess}
               onSwitchToSignUp={switchToSignUp}
             />
           ) : (
-            <SignUpForm 
+            <SignUpForm
               onSignUpSuccess={handleSignUpSuccess}
               onSwitchToSignIn={switchToSignIn}
             />
